@@ -2,6 +2,10 @@
 //@route GET/api/greeting/
 //@access Private
 const gettodo = (req,res) => {
+    if(!req.body.text){
+        res.status(400)
+        throw new Error('Please add a todo')
+    }
     res.status(200).json({message:"hey Codie"})
 }
 //@desc Set todo
