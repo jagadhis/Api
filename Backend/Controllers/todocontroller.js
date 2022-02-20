@@ -29,7 +29,15 @@ const Updatetodo = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please add a todo");
   }
-  res.status(200).json({ message: `Update message ${req.params.id}` });
+  const todo = await Todo.findById(req.params.id);
+  if (!todo) {
+    res.status(400);
+    throw new Error("Todo Not Found");
+  }
+  const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  res.status(200).json(updatedTodo);
 });
 //@desc Delete todo
 //@route GET/api/greeting/
